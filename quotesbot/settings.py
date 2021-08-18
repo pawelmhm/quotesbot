@@ -19,7 +19,7 @@ NEWSPIDER_MODULE = 'quotesbot.spiders'
 #USER_AGENT = 'quotesbot (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+# ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -52,10 +52,34 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'quotesbot.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+    'quotesbot.middlewares.selenium.CustomSeleniumMiddleware': 800
+}
 
+
+from shutil import which
+
+SELENIUM_DRIVER_NAME = 'chrome'
+SELENIUM_DRIVER_EXECUTABLE_PATH = which('chromedriver')
+SELENIUM_DRIVER_ARGUMENTS = [
+    "--headless",
+    "--no-sandbox",
+    "start-maximized",
+    "enable-automation",
+    "--disable-infobars",
+    "--disable-xss-auditor",
+    "--disable-setuid-sandbox",
+    "--disable-xss-auditor",
+    "--disable-web-security",
+    "--disable-dev-shm-usage",
+    "--disable-webgl",
+    "--disable-popup-blocking",
+    "--ignore-certificate-errors",
+    "--ignore-ssl-errors",
+    "--ignore-certificate-errors-spki-list",
+    "--allow-insecure-localhost",
+    "--ssl-insecure",
+]
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
 #EXTENSIONS = {
